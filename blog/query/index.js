@@ -46,10 +46,15 @@ app.post("/events", (req, res) => {
 
 app.listen(4002, async () => {
   console.log("Listening on 4002");
-  const res = await axios.get('http://localhost:4005/events');
-  for (let event of res.data) {
-    console.log('Processing event: ', event.type);
+  try {
+    const res = await axios.get("http://event-bus-clusterip-svr:4005/events");
 
-    handleEvents(event.type, event.data);
+    for (let event of res.data) {
+      console.log("Processing event:", event.type);
+
+      handleEvent(event.type, event.data);
+    }
+  } catch (error) {
+    console.log(error.message);
   }
 });

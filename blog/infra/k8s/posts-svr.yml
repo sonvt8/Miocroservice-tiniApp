@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: posts-svr
+  name: posts-nodeport-svr
 spec:
   type: NodePort
   selector:
